@@ -17,11 +17,8 @@
 	
 <?php
 
-
 	include "../connection/connection.php";
-	
-	
-	
+
 	$id = $_GET['id'];
 	if (!is_numeric($id))
 	{
@@ -32,9 +29,11 @@
 	//selecting query in order to get the detail of the student and department
 	$query = mysql_query("SELECT `SM_Student`.`Student_ID`,`SM_Student`.`Student_Name`,
 							`SM_Student`.`Student_Surname`,`SM_Course`.`Course_Name`,
-							`SM_Department`.`Department_Name` FROM SM_Department 
+							`SM_Department`.`Department_Name`,
+							`SM_Supervisor`.`Supervisor_Name` FROM SM_Department 
 							LEFT JOIN `bg70ng`.`SM_Course` ON `SM_Department`.`Department_ID` = `SM_Course`.`Department_ID`
-							LEFT JOIN `bg70ng`.`SM_Student` ON `SM_Course`.`Course_ID` = `SM_Student`.`Course_ID` 
+							LEFT JOIN `bg70ng`.`SM_Student` ON `SM_Course`.`Course_ID` = `SM_Student`.`Course_ID`
+							LEFT JOIN `bg70ng`.`SM_Supervisor` ON `SM_Supervisor`.`Supervisor_ID` = `SM_Student`.`Supervisor_ID`
 							WHERE `SM_Student`.`Student_ID` = $id");
 	$row = mysql_fetch_object($query);
 	echo mysql_error();
@@ -43,11 +42,12 @@
 	$forename = $row->Student_Name;
 	$surname = $row->Student_Surname;
 	$depart = $row->Department_Name;
+	$directStudy = $row->Supervisor_Name;
 
 	mysql_close($con);
 ?>
 
-<form action="../process/submit.php?id=<?php echo $studentId; ?>" method="post">
+<form action="submit.php?id=<?php echo $studentId; ?>" method="post">
 	<!--  Student Detail -->	
 	<div class="form-group">
 		<h2 class="heading full">Student Detail</h2>		
@@ -64,7 +64,7 @@
 			<label for="department">Department</label>
 		</div>
 		<div class="controls third">
-			<input type="text" id="directors_Present" class="floatLabel" name="directors_Present">
+			<input type="text" value="<?php echo $directStudy; ?>" id="directors_Present" class="floatLabel" name="directors_Present">
 			<label for="directors_Present">Director of Studies Present</label>
 		</div>
 		<div class="controls third">
@@ -115,11 +115,6 @@
 		<input type="text" name="Other_outcome" placeholder="Other Outcomes">
 		</div>
 		
-		<!--<div class="controls third">
-			<input type="radio" name="outcome" value="p"> Progress Satisfactory<br><br>
-			<input type="radio" name="outcome" value="l"> Lack of Progress<br><br>
-			<input type="text" name="Other_outcome" placeholder="Other Outcomes">
-		</div>-->
 		<div class="controls third">
 			<textarea type="text" name="date_OfInterimMeeting" class="floatLabel" id="date_OfInterimMeeting"></textarea>
 			<label for="date_OfInterimMeeting">Date of Next Interim Meeting - Separated by a commar (,).</label>
@@ -135,9 +130,7 @@
 		<h2 class="heading full">Signature Holder</h2>
 	
 		<div class="controls full">
-			
-			
-			
+
 			<div class="controls half">
 				<h2 class="heading half">Supervisor Signature</h2>
 				<iframe src="signaturePad.php" style="width: 100%; height: 25%;"></iframe>
@@ -145,19 +138,12 @@
 			
 			<div class="controls half">
 				<h2 class="heading half">Student Signature</h2>
-				<iframe src="signaturePad.php" style="width: 100%; height: 25%;"></iframe>
+				<iframe src="signaturePad2.php" style="width: 100%; height: 25%;"></iframe>
 			</div>
 			
+			<p class="half"><button onclick="myFunction()" type="button">Click Here to Save Signatures</button></p>
+			<p class="half"><button onclick="myFunction2()" type="button">Click Here to Erase Signatures</button></p>
 			
-			
-			
-			
-			
-			
-			<div class="controls half">
-				<textarea type="text" name="student_signature_link" class="floatLabel" id="student_signature_link"></textarea>
-				<label for="student_signature_link">Student Signature Link</label>
-			</div>
 			
 			<div class="controls half">
 				<textarea type="text" name="supervisor_signature_link" class="floatLabel" id="supervisor_signature_link"></textarea>
@@ -165,10 +151,40 @@
 			</div>
 			
 			
+			<div class="controls half">
+				<textarea type="text" name="student_signature_link" class="floatLabel" id="student_signature_link"></textarea>
+				<label for="student_signature_link">Student Signature Link</label>
+			</div>
 			
 			
 			
 			
+			<script>
+				function myFunction()
+				{
+					document.getElementById("supervisor_signature_link").innerHTML = localStorage.getItem("supervisor");
+					document.getElementById("student_signature_link").innerHTML = localStorage.getItem("student");
+					
+					alert("You can now submit the form.")
+				}
+				
+				function myFunction2()
+				{
+					var r = confirm("Are you sure you want to erase the signature?\n\nIf yes, you will need to save each signature again before \nsubmitting the form. thank you.");
+					
+					if (r == true){
+						
+						document.getElementById("supervisor_signature_link").innerHTML = "";
+						document.getElementById("student_signature_link").innerHTML = "";
+						localStorage.clear();
+					}
+					else
+					{
+						
+					}
+					
+				}
+			</script>
 			
 		</div>
 		
@@ -178,7 +194,6 @@
 		</div>
 	</div>
 </form>
-
 
 
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

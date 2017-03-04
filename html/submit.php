@@ -16,8 +16,9 @@
 		<!--<h2 class="full"> ASIM edit: <em>Floating Labels</em> &nbsp; <i class="fa fa-twitter"></i> <a href="https://twitter.com/AntonSimanov" target="_blank">  @AntonSimanov</a></h2> -->
 		<h2 class="full"><a href="../html/supScreen.php" class="btnbutton">Back</a></h2>
 	</header>
-
+	
 <?php
+	
 	//Connection function from another file
 	include "../connection/connection.php";
 	
@@ -46,24 +47,25 @@
 	$interim = $_POST["date_OfInterimMeeting"];
 	$monthlyDate = $_POST["monthlydate"];
 	$currentDate = date("Y-m-d");
-	$studentSignature = $_POST["student_signature_link"];
-	$supervisorSignature = $_POST["supervisor_signature_link"];
+	$signStudent = $_POST["student_signature_link"];
+	$signSupervisor = $_POST["supervisor_signature_link"];
+	
 	
 	//Insering data into meeting's table
 	$sql = "INSERT INTO `bg70ng`.`SM_Meeting` 
-		(	`Meeting_ID`, `Monthly_Date`, `Interin_Date`, `Other_Supervisor_Present`, 
-			`Meeting_Did_Not_Take_Place`, `Reasons`, `Progress`, `Issues`, `Action`, 
-			`Outcome`, `Other_Reasons`, 
-			`Student_Signature`, `Supervisor_Signature`, `Cur_Date`
+		(	
+			`Meeting_ID`,`Monthly_Date`,`Interin_Date`,`Other_Supervisor_Present`, 
+			`Meeting_Did_Not_Take_Place`,`Reasons`, `Progress`,`Issues`, `Action`, 
+			`Outcome`,`Other_Reasons`,`Student_Signature`,`Supervisor_Signature`, `Cur_Date`
 		) 
 		VALUES 
-		(	NULL, '$monthlyDate', '$interim', '$supervisors', '$meeting', '$resons', 
-			'$progress', '$issues', 
-			'$actions', '$outcome', '$O_Outcome', '$studentSignature', '$supervisorSignature', 
-			'$currentDate'
+		(	
+			NULL,'$monthlyDate','$interim','$supervisors','$meeting','$resons', 
+			'$progress','$issues','$actions','$outcome','$O_Outcome','$signStudent',
+			'$signSupervisor','$currentDate'
 		)";
 		
-		echo $currentDate;
+		// $currentDate;
 	if (!mysql_query($sql,$con))
 	{
 		die("Error: " . mysql());
@@ -94,35 +96,6 @@
 	//Close the connection
 	mysql_close($con);
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

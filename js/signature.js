@@ -24,6 +24,10 @@ signaturePad = new SignaturePad(canvas);
 
 clearButton.addEventListener("click", function (event) {
     signaturePad.clear();
+	
+	document.getElementById("test").innerHTML = "";
+	
+	localStorage.setItem("supervisor","");
 });
 
 saveButton.addEventListener("click", function (event) {
@@ -31,7 +35,36 @@ saveButton.addEventListener("click", function (event) {
         alert("Please provide signature first.");
     } else {
 		
-		//var url = signaturePad.toDataURL();
-        window.open(signaturePad.toDataURL());
+		
+		localStorage.setItem("supervisor","");
+
+		data = signaturePad.toDataURL();
+
+		
+		localStorage.setItem("supervisor", data);
+		
+		alert("The Signature was Saved Successuflly. Thank You.")
+		
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,12 +8,6 @@
 	<link rel="stylesheet" type='text/css' href="../css/stylesheet.css">
 	<link rel="stylesheet" type='text/css' href="../css/stylesheet_viewRecord.css">
 	
-	<script>
-	function openWin() {
-		window.open("Report.php");
-	}
-	</script>
-	
 </head>
 
 <body>
@@ -35,6 +29,7 @@
 		echo "Sorry, there is an error.";
 		exit;
 	}
+	
 	
 	//selecting query in order to get the detail of the student and department
 	$result = mysql_query(
@@ -91,7 +86,7 @@
 		<?php
 			echo "<h3 class='textFont'>Department: $depart</h3>";
 			echo "<h3 class='textFont'><br>Leader of Department: $leader</h3>";
-			echo "<br><br><br><br><h3 class='textFont'>Number of Meetings: xxxx in total";
+			//echo "<br><br><br><br><h3 class='textFont'>Number of Meetings: xxxx in total";
 		?>
 	</div>
 	<div id="containerStudentDetails3">
@@ -113,7 +108,7 @@
 		
 		
 		$query = mysql_query(
-							"SELECT `SM_Record`.`Record_ID`,`SM_Record`.`Student_ID`,`SM_Student`.`Student_Title`,`SM_Student`.`Student_Name`,
+							"SELECT `SM_Record`.`Record_ID`,`SM_Record`.`Student_ID`,`SM_Student`.`Student_ID`,`SM_Student`.`Student_Title`,`SM_Student`.`Student_Name`,
 								`SM_Student`.`Student_Middle_Name`,`SM_Student`.`Student_Surname`,`SM_Student`.`DOB`,`SM_Student`.`Project_ID`,
 								`SM_Project`.`Project_Name`,`SM_Project`.`Project_Description`,`SM_Student`.`Course_ID`,`SM_Course`.`Course_Name`,
 								`SM_Course`.`Course_Date_Started`,`SM_Course`.`Course_Description`,`SM_Student`.`Supervisor_ID`,
@@ -212,8 +207,13 @@
 				
 				echo "<br><h3 class='others'>Other Outcome of the Meeting:</h3></br>";
 				echo "<h4 class='other'>" . $rows['Other_Reasons'] . "</h4>";
+				$recordID = $rows['Record_ID'];
+				$meetingID = $rows['Meeting_ID'];
+				$studentID = $rows['Student_ID'];
 				
-				echo "<button type='button' class='pdfButton' onclick='openWin()'>PDF Report</button></br></br></br></br>";
+				echo "<a href='Delete.php?record_id=$recordID&meeting_id=$meetingID'><button type='button' class='pdfButton'>Delete Report</button></a>";
+				echo "<a href='Report.php?id=$recordID' target='_blank'><button type='button' class='pdfButton'>PDF Report</button></a>";
+				echo "<a href='Edit.php?id=$meetingID'><button type='button' class='pdfButton'>Edit Report</button></a></br></br></br></br>";
 				
 				//echo "<a href='pdf.php' class='pdfButton full' onclick='openWin()'>PDF</a></br></br></br></br></br>";
 				
