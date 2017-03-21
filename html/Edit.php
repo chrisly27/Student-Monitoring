@@ -72,7 +72,7 @@
 	<div class="form-group">
 		<h2 class="heading full">Student Detail</h2>		
 		<div class="controls third">
-			<input type="text" value="<?php echo $forename . " " . $middle . " " . $surname; ?>" id="firstName" class="floatLabel" name="First_Name">
+			<input type="text" value="<?php echo $forename . " " . $middle . " " . $surname; ?>" id="firstName" class="floatLabel" name="First_Name" required>
 			<label for="firstName">First Name</label>
 		</div>
 
@@ -97,15 +97,15 @@
 	<div class="form-group">
 		<h2 class="heading full">Detail of the Meeting</h2>
 		<div class="controls full">
-			<textarea name="progress" class="floatLabel" id="progress"><?php echo $progress; ?></textarea>
+			<textarea name="progress" class="floatLabel" id="progress" required><?php echo $progress; ?></textarea>
 			<label for="progress">Progress Made Since Last Meeting</label>
 		</div>
 		<div class="controls full">
-			<textarea name="issues" class="floatLabel" id="issues"><?php echo $issue; ?></textarea>
+			<textarea name="issues" class="floatLabel" id="issues" required><?php echo $issue; ?></textarea>
 			<label for="issues">Issues Discussed During Meeting</label>
 		</div>
 		<div class="controls full">
-			<textarea name="actions" class="floatLabel" id="actions"><?php echo $action; ?></textarea>
+			<textarea name="actions" class="floatLabel" id="actions" required><?php echo $action; ?></textarea>
 			<label for="actions">Agreed Actions</label>
 		</div>
 	</div>
@@ -114,7 +114,7 @@
 	<h2 class="heading full">Outcome of Meeting</h2>
 		
 		<div class="controls third">
-			<select class="floatLabel" name="outcome">
+			<select class="floatLabel" name="outcome" required>
 				<option value=""></option>
 				<option value="Satisfactory"> Progress Satisfactory </option>
 				<option value="Dissatisfactory"> Lack of Progress - Reasons below! </option>
@@ -124,7 +124,7 @@
 		</div>
 		
 		<div class="controls third">
-			<input type="text" value="<?php echo $outcome; ?>" name="Other_outcome" class="floatLabel" id="Other_outcome">
+			<input type="text" value="<?php echo $outcome; ?>" name="Other_outcome" class="floatLabel" id="Other_outcome" required>
 			<label for="Other_outcome">Other Outcomes</label>
 		</div>
 		
