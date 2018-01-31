@@ -16,11 +16,11 @@ Use this link to test this appilication but please do not insert any data into t
 - https://fas-web.sunderland.ac.uk/~bg70ng/SM
 and use this logins:
   - User
-    Username: chris
-    Password: super
+    - Username: chris
+    - Password: super
   - Admin
-    Username: andrew
-    Password: admin
+    - Username: andrew
+    - Password: admin
 
 
 Note: Please, do not insert anything, this is only for viewing purposes. Thank you
