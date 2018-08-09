@@ -23,4 +23,4 @@ and use this logins:
     - Password: admin
 
 
-Note: Please, do not insert anything, this is only for viewing purposes. Thank you
+Note: **Please, do not insert anything, this is only for viewing purposes. Thank you**
